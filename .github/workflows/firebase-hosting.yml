@@ -22,4 +22,3 @@ jobs:
           firebase deploy --only hosting --project persephone-automotive-9ed4f
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
