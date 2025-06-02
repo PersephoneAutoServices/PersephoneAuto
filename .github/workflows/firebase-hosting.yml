@@ -8,17 +8,21 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: persephone_automotive_site
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repo
         uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Deploy to Firebase Hosting
-        run: |
-          cd persephone_automotive_site
-          firebase deploy --only hosting --project persephone-automotive-9ed4f
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
